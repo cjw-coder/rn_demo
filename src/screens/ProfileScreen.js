@@ -1,0 +1,77 @@
+import React from 'react';
+import { View, Text, StyleSheet, FlatList, Image, Dimensions } from 'react-native';
+
+const ProfileScreen = () => {
+  const data = [
+    { label: '头像', value: '昵称', type: 'avatar' },
+    { label: '邮箱', value: 'sdaf123234@163.com' },
+    { label: '地址', value: 'xx 省xx 市' },
+    { label: '注册时间', value: '2011-1' },
+    // 添加更多个人信息...
+  ];
+
+  const renderProfileInfo = ({ item }) => {
+    if (item.type === 'avatar') {
+      return (
+        <View style={styles.row}>
+          <Image source={require('../assets/splash.jpg')} style={styles.avatar} />
+          <View style={styles.infoContainer}>
+            <Text style={styles.label}>{item.label}</Text>
+            <Text style={styles.value}>{item.value}</Text>
+          </View>
+        </View>
+      );
+    }
+
+    return (
+      <View style={styles.row}>
+        <Text style={styles.label}>{item.label}</Text>
+        <Text style={styles.value}>{item.value}</Text>
+      </View>
+    );
+  };
+
+  return (
+    <FlatList
+      data={data}
+      renderItem={renderProfileInfo}
+      keyExtractor={(item, index) => index.toString()}
+      contentContainerStyle={styles.container}
+    />
+  );
+};
+
+const styles = StyleSheet.create({
+  container: {
+    paddingHorizontal: 20,
+    paddingTop: 40,
+  },
+  avatar: {
+    width: 60,
+    height: 60,
+    borderRadius: 40,
+    marginRight: 10,
+  },
+  infoContainer: {
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
+  row: {
+    flexDirection: 'row',
+    marginBottom: 20,
+    flex:1,
+    alignItems: 'center',
+  },
+  label: {
+    width: Dimensions.get("screen").width/2,
+    fontWeight: 'bold',
+  },
+  value: {
+    flex: 1,
+    marginLeft: 40,
+  },
+});
+
+export default ProfileScreen;
