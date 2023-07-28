@@ -1,14 +1,36 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { View, Text, StyleSheet, FlatList, Image, Dimensions } from 'react-native';
 
 const ProfileScreen = () => {
-  const data = [
-    { label: '头像', value: '昵称', type: 'avatar' },
-    { label: '邮箱', value: 'sdaf123234@163.com' },
-    { label: '地址', value: 'xx 省xx 市' },
-    { label: '注册时间', value: '2011-1' },
-    // 添加更多个人信息...
-  ];
+  const [data ,setData ] = new useState([
+    { label: '', value: '', type: 'avatar' },
+    { label: '邮箱', value: '' },
+    { label: '地址', value: '' },
+    { label: '注册时间', value: '' },
+  ]);
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  //模拟请求
+  const fetchData = async () => {
+    try {
+      const response = await fetch('https://getman.cn/mock/route/to/demo');
+      if(response.status == 200){
+        setData([
+          { label: '', value: '小度', type: 'avatar' },
+          { label: '邮箱', value: 'sdaf124@163.com' },
+          { label: '地址', value: 'xx 省xx 市' },
+          { label: '注册时间', value: '2011-1' },
+        ]);
+        console.log(data)
+      }
+    } catch (error) {
+      console.error('请求失败,错误信息为：', error);
+    }
+  };
+
 
   const renderProfileInfo = ({ item }) => {
     if (item.type === 'avatar') {
@@ -60,7 +82,7 @@ const styles = StyleSheet.create({
   },
   row: {
     flexDirection: 'row',
-    marginBottom: 20,
+    marginBottom: 30,
     flex:1,
     alignItems: 'center',
   },

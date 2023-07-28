@@ -6,7 +6,6 @@ const StartScreen = (props) => {
     const [imageHeight,setImageHeight] = useState(Dimensions.get('screen').height);
 
     useEffect(()=>{
-      console.log("组件加载完成");
       setTimeout(()=>{
         setImageHeight(0);
       },2000)
